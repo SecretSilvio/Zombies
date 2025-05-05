@@ -134,9 +134,10 @@ namespace Pathfinding.BehaviorTrees
 
         public readonly string name;
         public readonly int priority;
-
         public readonly List<Node> children = new();
+
         protected int currentChild;
+        private bool hasEntered = false;
 
         public Node(string name = "Node", int priority = 0)
         {
@@ -146,16 +147,35 @@ namespace Pathfinding.BehaviorTrees
 
         public void AddChild(Node child) => children.Add(child);
 
-        public virtual Status Process() => children[currentChild].Process();
+        public virtual Status Process()
+        {
+            if (!hasEntered)
+            {
+                Enter();
+                hasEntered = true;
+            }
+
+            return children.Count > 0 ? children[currentChild].Process() : Status.Failure;
+        }
+
+        protected virtual void Enter()
+        {
+            // Called once when the node is entered
+            foreach (var child in children)
+            {
+                child.Reset(); // Optional: Reset all children on entry
+            }
+        }
 
         public virtual void Reset()
         {
+            hasEntered = false;
             currentChild = 0;
+
             foreach (var child in children)
             {
                 child.Reset();
             }
-
         }
     }
 }
