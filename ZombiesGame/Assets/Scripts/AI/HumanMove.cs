@@ -6,32 +6,25 @@ using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class ZombieMove : MonoBehaviour
+public class HumanMove : MonoBehaviour
 {
+    [SerializeField] private List<Transform> safepoints;
     [SerializeField] private List<Transform> waypoints;
 
     NavMeshAgent agent;
     BehaviorTree tree;
-    [SerializeField] private List<Transform> humans;
-    public Transform target = null;
+    [SerializeField] private List<Transform> zombies;
+    public Transform target;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
 
-        tree = new BehaviorTree("Zombie");
+        tree = new BehaviorTree("Human");
 
         PrioritySelector selector = new PrioritySelector("Selector");
-
-        Sequence chaseHumanSeq = new Sequence("ChaseHuman", 100);
-        chaseHumanSeq.AddChild(new Leaf("Chase", new ChaseStrategy(transform, agent, target)));
-        chaseHumanSeq.AddChild(new Leaf("AttackHuman", new ActionStrategy(() =>
-        {
-            target.gameObject.SetActive(false);
-            Debug.Log("Attacking human!");
-        })));
-
-        selector.AddChild(chaseHumanSeq);
+        
+        selector.AddChild(new Leaf("Escape", new EscapeToSafetyStrategy(transform, agent, target, safepoints), 100));
         selector.AddChild(new Leaf("Patrol", new PatrolStrategy(transform, agent, waypoints), 50));
 
         tree.AddChild(selector);
@@ -47,7 +40,7 @@ public class ZombieMove : MonoBehaviour
 
     void VisionCheck()
     {
-        target = GetClosestTransform(humans);
+        target = GetClosestTransform(zombies);
 
         // Calculate direction to the target and the dot product for vision cone check
         Vector3 toTarget = (target.position - transform.position).normalized;
@@ -77,7 +70,6 @@ public class ZombieMove : MonoBehaviour
         {
             target = null;
         }
-
     }
 
     Transform GetClosestTransform(List<Transform> transforms)

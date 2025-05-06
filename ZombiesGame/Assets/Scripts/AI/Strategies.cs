@@ -68,6 +68,7 @@ namespace Pathfinding.BehaviorTrees
             {
                 Reset();
                 hasInitialized = true;
+                isPathCalculated = true;
             }
 
             var target = waypoints[currentWaypointIndex];
@@ -138,8 +139,14 @@ namespace Pathfinding.BehaviorTrees
             this.target = target;
             this.chaseSpeed = chaseSpeed;
         }
+
         public Node.Status Process()
         {
+            if (target == null)
+            {
+                return Node.Status.Failure;
+            }
+
             Vector3 toTarget = (target.position - entity.position).normalized;
             float distanceToTarget = Vector3.Distance(entity.position, target.position);
             float dot = Vector3.Dot(entity.forward, toTarget);
@@ -194,6 +201,124 @@ namespace Pathfinding.BehaviorTrees
         public void Reset()
         {
             lastSeenTime = Mathf.NegativeInfinity;
+            isPathCalculated = false;
+        }
+    }
+
+    public class EscapeToSafetyStrategy : IStrategy
+    {
+        readonly Transform entity;
+        readonly NavMeshAgent agent;
+        readonly Transform target;
+        readonly List<Transform> safepoints;
+        readonly float escapeSpeed;
+        bool isPathCalculated;
+
+        float memoryDuration = 10f; // How long to remember the target
+        float lastSeenTime = Mathf.NegativeInfinity;
+
+        public EscapeToSafetyStrategy(Transform entity, NavMeshAgent agent, Transform target, List<Transform> safepoints, float escapeSpeed = 5f)
+        {
+            this.entity = entity;
+            this.agent = agent;
+            this.target = target;
+            this.safepoints = safepoints;
+            this.escapeSpeed = escapeSpeed;
+        }
+        public Node.Status Process()
+        {
+            if (target == null)
+            {
+                return Node.Status.Failure;
+            }
+
+            Vector3 toTarget = (target.position - entity.position).normalized;
+            float distanceToTarget = Vector3.Distance(entity.position, target.position);
+            float dot = Vector3.Dot(entity.forward, toTarget);
+            float visionThreshold = 0.9f;
+            float maxChaseDistance = 15f;
+
+            bool hasVision = dot >= visionThreshold && distanceToTarget <= maxChaseDistance;
+
+            if (hasVision)
+            {
+                Ray ray = new Ray(entity.position + Vector3.up * 1.5f, toTarget);
+                RaycastHit hit;
+                LayerMask obstacleMask = LayerMask.GetMask("Default");
+
+                if (Physics.Raycast(ray, out hit, distanceToTarget, obstacleMask))
+                {
+                    if (hit.transform != target)
+                    {
+                        hasVision = false;
+                    }
+                }
+            }
+
+            if (hasVision)
+            {
+                lastSeenTime = Time.time; // update memory
+            }
+
+            if (Time.time - lastSeenTime > memoryDuration)
+            {
+                return Node.Status.Failure;
+            }
+
+            // Track the closest safe point that is not in the enemy's direction
+            Transform bestSafePoint = null;
+            float bestDistance = float.MaxValue;
+
+            foreach (var safePoint in safepoints)
+            {
+                Vector3 toSafe = safePoint.position - entity.position;
+                Vector3 toEnemy = target.position - entity.position;
+
+                // Calculate the angle between the safe point and the enemy direction
+                float angle = Vector3.Angle(toSafe, toEnemy);
+                float distance = Vector3.Distance(entity.position, safePoint.position);
+
+                // Ensure the safe point is more than 90 degrees away from the enemy's position
+                if (angle > 90f && distance < bestDistance)
+                {
+                    bestSafePoint = safePoint;
+                    bestDistance = distance;
+                }
+            }
+
+            // If we found a safe point that isn't in the enemy's direction
+            if (bestSafePoint != null)
+            {
+                agent.SetDestination(bestSafePoint.position);
+            }
+            else
+            {
+                // No valid safe point, just run away from the enemy
+                Vector3 awayFromTarget = -toTarget;
+                agent.SetDestination(entity.position + awayFromTarget * 10f); // Move away from the target
+
+                // Optional: Make the entity face away from the enemy while fleeing
+                Quaternion lookRotation = Quaternion.LookRotation(awayFromTarget);
+                entity.rotation = Quaternion.Slerp(entity.rotation, lookRotation, Time.deltaTime * 5f);
+            }
+
+            // Check if the agent has reached the destination
+            agent.speed = escapeSpeed;
+            if (isPathCalculated && agent.remainingDistance < agent.stoppingDistance)
+            {
+                isPathCalculated = false;
+                return Node.Status.Success;
+            }
+
+            if (agent.pathPending)
+            {
+                isPathCalculated = true;
+            }
+
+            return Node.Status.Running;
+        }
+        public void Reset()
+        {
             isPathCalculated = false;
         }
     }

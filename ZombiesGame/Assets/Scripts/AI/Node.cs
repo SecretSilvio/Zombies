@@ -167,6 +167,21 @@ namespace Pathfinding.BehaviorTrees
             }
         }
 
+        public virtual Node GetNode(string searchName)
+        {
+            if (this.name == searchName)
+                return this;
+
+            foreach (var child in children)
+            {
+                Node result = child.GetNode(searchName);
+                if (result != null)
+                    return result;
+            }
+
+            return null;
+        }
+
         public virtual void Reset()
         {
             hasEntered = false;
