@@ -5655,6 +5655,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Characters_Zombie_Pacient_04
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4dd08149a73761d46945acc455781ac0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
