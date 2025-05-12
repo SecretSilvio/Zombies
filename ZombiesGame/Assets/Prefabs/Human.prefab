@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 8151830607210482007}
   - component: {fileID: 8407631029360607531}
   - component: {fileID: 5925178006044374945}
-  - component: {fileID: 8228674111883024117}
+  - component: {fileID: 3575680009795148451}
+  - component: {fileID: 6031877443769630333}
   m_Layer: 0
   m_Name: Human
   m_TagString: Human
@@ -134,7 +135,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8228674111883024117
+--- !u!114 &3575680009795148451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,17 +144,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 2585860273977886487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92bf699a94714104c8af8097c88e8039, type: 3}
+  m_Script: {fileID: 11500000, guid: f085546e868d57d4b8d582ec7f47f417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safepoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  zombies:
-  - {fileID: 0}
-  target: {fileID: 0}
+  wanderRadius: 10
+  timeBetweenWanders: 5
+  sightRange: 30
+  fieldOfView: 180
+--- !u!114 &6031877443769630333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2585860273977886487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb309719e7db14f45bff1eab955dbc44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

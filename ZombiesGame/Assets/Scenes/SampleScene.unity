@@ -1556,6 +1556,14 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[3]'
       value: 
       objectReference: {fileID: 997142211}
+    - target: {fileID: 7027094681546793122, guid: 060b461d8e041da44ad42532bb2007fa, type: 3}
+      propertyPath: sightRange
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7027094681546793122, guid: 060b461d8e041da44ad42532bb2007fa, type: 3}
+      propertyPath: wanderRadius
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8418307341065199003, guid: 060b461d8e041da44ad42532bb2007fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.39
