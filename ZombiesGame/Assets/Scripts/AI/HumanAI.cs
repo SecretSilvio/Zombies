@@ -91,7 +91,7 @@ public class HumanAI : MonoBehaviour
             float distToHuman = Vector3.Distance(transform.position, sp.position);
             float distToZombie = Vector3.Distance(currentZombieThreat.position, sp.position);
 
-            if (distToHuman < distToZombie && distToHuman < closestDist)
+            if (distToHuman < distToZombie && distToHuman < closestDist && distToZombie > 15)
             {
                 closestDist = distToHuman;
                 bestSafePoint = sp;
@@ -100,14 +100,8 @@ public class HumanAI : MonoBehaviour
 
         if (bestSafePoint != null)
         {
-            if (closestZombieDist < 10f)
-            {
-                agent.SetDestination(safePoints[0].position);
-            }
-            else
-            {
-                agent.SetDestination(bestSafePoint.position);
-            }
+
+            agent.SetDestination(bestSafePoint.position);
         }
         else
         {
