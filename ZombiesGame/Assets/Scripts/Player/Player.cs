@@ -27,6 +27,11 @@ public class Player : MonoBehaviour
     public float attackWidth = 1f;
     public float attackHeight = 2f;
 
+    public GameObject humanWin;
+    public GameObject zombieWin;
+    public GameObject loseScreen;
+    public float killGoal = 3f;
+
     public int Health;
     public int humankills = 0;
     public int zombiekills = 0;
@@ -36,6 +41,9 @@ public class Player : MonoBehaviour
         // rb = GetComponent<Rigidbody>();
         controller = GetComponent<CharacterController>();
         StartCoroutine(GroggyRoutine());
+        humanWin.SetActive(false);
+        zombieWin.SetActive(false);
+        loseScreen.SetActive(false);
     }
 
     void Update()
@@ -125,6 +133,14 @@ public class Player : MonoBehaviour
                 break; // Only hit one
             }
         }
+        if (zombiekills == killGoal)
+        {
+            zombieWin.SetActive(true);
+        }
+        if (humankills == killGoal)
+        {
+            humanWin.SetActive(true);
+        }
     }
 
     void OnDrawGizmosSelected()
@@ -139,5 +155,9 @@ public class Player : MonoBehaviour
     public void takeDamage(int damage)
     {
         Health -= damage;
+        if (Health <= 0)
+        {
+            loseScreen.SetActive(true);
+        }
     }
 }
