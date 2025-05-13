@@ -41,9 +41,9 @@ public class Player : MonoBehaviour
         // rb = GetComponent<Rigidbody>();
         controller = GetComponent<CharacterController>();
         StartCoroutine(GroggyRoutine());
-        humanWin.SetActive(false);
-        zombieWin.SetActive(false);
-        loseScreen.SetActive(false);
+        // humanWin.SetActive(false);
+        // zombieWin.SetActive(false);
+        // loseScreen.SetActive(false);
     }
 
     void Update()

@@ -21,23 +21,7 @@ public class PostGameUI : MonoBehaviour
 
     void Update()
     {   
-        Debug.Log(player.zombiekills);
-        if (player.humankills == winCondition) 
-        {   
-            // StartCoroutine(MoveCameraToVictory());
-            Debug.Log($"Human Win");
-            screen.SetActive(true);
-        }
-        if (player.zombiekills == winCondition)
-        {
-            // StartCoroutine(MoveCameraToVictory());
-            Debug.Log($"Zombie Win");
-            screen.SetActive(true);
-        }
-        if (player.Health <= 0)
-        {
-            screen.SetActive(true);
-        }
+
     }
 
     IEnumerator MoveCameraToVictory()
