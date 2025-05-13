@@ -8,6 +8,7 @@ public class Killable : MonoBehaviour
     private ZombieAI zombieAI;
     private HumanAI humanAI;
     private NavMeshAgent nav;
+    private Collider collider;
 
     public void Awake()
     {
@@ -15,6 +16,7 @@ public class Killable : MonoBehaviour
         zombieAI = GetComponent<ZombieAI>();
         humanAI = GetComponent<HumanAI>();
         nav = GetComponent<NavMeshAgent>();
+        collider = GetComponent<Collider>();
     }
 
     public void Die()
@@ -35,6 +37,7 @@ public class Killable : MonoBehaviour
         {
             humanAI.enabled = false;
         }
+        collider.enabled = false;
         nav.ResetPath();
         // Wait for a few seconds before destroying the object
         yield return new WaitForSeconds(4f);

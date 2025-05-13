@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
 
         move += transform.right * groggyStrafe;
 
-        if (Input.GetKey(attack)) StartCoroutine(Attacking());
+        if (Input.GetKeyDown(attack)) StartCoroutine(Attacking());
 
         // Gravity
         if (!controller.isGrounded)
@@ -113,25 +113,27 @@ public class Player : MonoBehaviour
 
         foreach (Collider hit in hits)
         {
+            Debug.Log("Hit: " + hit.name);
             if (hit.CompareTag("Zombie") || hit.CompareTag("Human"))
             {
                 Killable killable = hit.GetComponent<Killable>();
                 if (killable != null)
                 {
                     killable.Die();
+                    if (hit.CompareTag("Zombie"))
+                    {
+                        // logic for incrementing score
+                        zombiekills += 1;
+                    }
+                    else
+                    {
+                        // logic for incrementing score
+                        humankills += 1;
+                    }
+                    break; // Only hit one
                 }
                     Debug.Log("Hit target: " + hit.name);
-                if (hit.CompareTag("Zombie"))
-                {
-                    // logic for incrementing score
-                    zombiekills += 1;
-                }
-                else
-                {
-                    // logic for incrementing score
-                    humankills += 1;
-                }
-                break; // Only hit one
+                
             }
         }
         if (zombiekills == killGoal)
