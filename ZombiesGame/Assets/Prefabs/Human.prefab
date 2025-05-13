@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.77182996, z: 0, w: 0.63582903}
   m_LocalPosition: {x: -12.62, y: 3.0346189, z: 11.36}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
+  m_LocalScale: {x: 0.81, y: 0.81, z: 0.81}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6430827391900519197}
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wanderRadius: 10
-  timeBetweenWanders: 1
+  timeBetweenWanders: 2
   sightRange: 30
   fieldOfView: 180
 --- !u!114 &6031877443769630333

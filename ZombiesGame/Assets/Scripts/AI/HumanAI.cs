@@ -84,6 +84,7 @@ public class HumanAI : MonoBehaviour
         lastSeenTimer -= Time.deltaTime;
         Transform bestSafePoint = null;
         float closestDist = float.MaxValue;
+        float closestZombieDist = float.MaxValue;
 
         foreach (Transform sp in safePoints)
         {
@@ -99,7 +100,14 @@ public class HumanAI : MonoBehaviour
 
         if (bestSafePoint != null)
         {
-            agent.SetDestination(bestSafePoint.position);
+            if (closestZombieDist < 10f)
+            {
+                agent.SetDestination(safePoints[0].position);
+            }
+            else
+            {
+                agent.SetDestination(bestSafePoint.position);
+            }
         }
         else
         {
@@ -132,8 +140,12 @@ public class HumanAI : MonoBehaviour
             {
                 Debug.Log("Shooting Raycast...");
                 if (hit.transform == t)
+                {
                     Debug.Log("Zombie spotted!");
-                return true;
+                    return true;
+                }
+                    
+
             }
         }
 
