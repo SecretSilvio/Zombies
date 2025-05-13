@@ -11,7 +11,7 @@ public class ControlManager : MonoBehaviour
     public Transform playerbody;
     public Transform[] rtp;
 
-    [SerializeField] private CanvasGroup canvasGroup;
+    //[SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private float fadeDuration = 5.0f;
     [SerializeField] private bool fadeIn = false;
 
@@ -19,12 +19,12 @@ public class ControlManager : MonoBehaviour
 
     public void FadeIn()
     {
-        StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 0, fadeDuration));
+        //StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 0, fadeDuration));
     }
 
     public void FadeOut()
     {
-        StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 1, fadeDuration));
+        //StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 1, fadeDuration));
     }
 
     private IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end, float duration)
@@ -71,10 +71,10 @@ public class ControlManager : MonoBehaviour
             player.moveRight = GetAndRemoveRandomKey(availableKeys);
             player.attack = GetAndRemoveRandomKey(availableKeys);
             
-            yield return StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 1, fadeDuration));
+            //yield return StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 1, fadeDuration));
             yield return StartCoroutine(TeleportToRandomPoint());
             yield return new WaitForSeconds(.5f);
-            yield return StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 0, fadeDuration));
+            //yield return StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 0, fadeDuration));
             Debug.Log($"Forward: {player.moveForward}, Backward: {player.moveBackward}, Left: {player.moveLeft}, Right: {player.moveRight}");
             // yield return new WaitForSeconds(changeInterval);
         }
