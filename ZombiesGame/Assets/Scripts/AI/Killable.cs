@@ -1,17 +1,20 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Killable : MonoBehaviour
 {
     private Animator animator;
     private ZombieAI zombieAI;
     private HumanAI humanAI;
+    private NavMeshAgent nav;
 
     public void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         zombieAI = GetComponent<ZombieAI>();
         humanAI = GetComponent<HumanAI>();
+        nav = GetComponent<NavMeshAgent>();
     }
 
     public void Die()
@@ -32,6 +35,7 @@ public class Killable : MonoBehaviour
         {
             humanAI.enabled = false;
         }
+        nav.ResetPath();
         // Wait for a few seconds before destroying the object
         yield return new WaitForSeconds(4f);
         Destroy(gameObject);

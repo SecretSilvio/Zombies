@@ -4833,7 +4833,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 0.2}
   m_Center: {x: 0, y: 1, z: 0}
@@ -8220,6 +8220,10 @@ PrefabInstance:
     - target: {fileID: 2111093867182145726, guid: eae331430f6e7ca47b6be16408b674e2, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3342323167776540219, guid: eae331430f6e7ca47b6be16408b674e2, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4750793188514798134, guid: eae331430f6e7ca47b6be16408b674e2, type: 3}
       propertyPath: mouseSensitivity
