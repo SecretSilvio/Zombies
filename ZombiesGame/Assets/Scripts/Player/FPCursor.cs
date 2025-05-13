@@ -3,7 +3,7 @@ using UnityEngine;
 public class FP_Cursor : MonoBehaviour
 {
     public float mouseSensitivity;
-    float xRotation = 0;
+    public Vector2 turn;
     public Camera playerCamera;
 
     void Start()
@@ -13,12 +13,15 @@ public class FP_Cursor : MonoBehaviour
 
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity *Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity *Time.deltaTime;
+        // float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity *Time.deltaTime;
+        // float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity *Time.deltaTime;
 
-        xRotation -=mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90,90);
-        playerCamera.transform.localRotation =Quaternion.Euler(xRotation,0,0);
-        transform.Rotate(Vector3.up*mouseX);
+        // xRotation -=mouseY;
+        // xRotation = Mathf.Clamp(xRotation, -90,90);
+        // playerCamera.transform.localRotation =Quaternion.Euler(xRotation,0,0);
+        // transform.Rotate(Vector3.up*mouseX);
+        turn.x += Input.GetAxis("Mouse X");
+        turn.y += Input.GetAxis("Mouse Y");
+        transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
     }
 }

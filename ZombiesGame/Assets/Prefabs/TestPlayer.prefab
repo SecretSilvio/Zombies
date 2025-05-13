@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 1
+  turn: {x: 0, y: 0}
   playerCamera: {fileID: 2315391450499310669}
 --- !u!114 &449449030201552385
 MonoBehaviour:
@@ -141,8 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae317f72ee9abb43ba726d00a3454a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentScheme: {fileID: 0}
-  controlManager: {fileID: 0}
   moveSpeed: 10
   jumpForce: 7
   friction: 10
@@ -156,6 +155,8 @@ MonoBehaviour:
   attackRange: 3
   attackWidth: 1
   attackHeight: 2
+  humankills: 0
+  zombiekills: 0
 --- !u!54 &5600537771265997893
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -234,7 +235,7 @@ Transform:
   m_GameObject: {fileID: 8855850786896823251}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0.2}
+  m_LocalPosition: {x: 0, y: 0.6, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
