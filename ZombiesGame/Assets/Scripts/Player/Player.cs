@@ -135,10 +135,16 @@ public class Player : MonoBehaviour
         }
         if (zombiekills == killGoal)
         {
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             zombieWin.SetActive(true);
         }
         if (humankills == killGoal)
         {
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             humanWin.SetActive(true);
         }
     }
@@ -157,6 +163,9 @@ public class Player : MonoBehaviour
         Health -= damage;
         if (Health <= 0)
         {
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             loseScreen.SetActive(true);
         }
     }
