@@ -7,41 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class PostGameUI : MonoBehaviour
 {
-    public int winCondition = 3;
-    public Player player;
-    public GameObject screen; 
-    public bool isZombie = true;
-    public Transform victoryCamPosition;
-    public float camMoveSpeed = 2f;
-
-    void Awake()
-    {
-        gameObject.SetActive(false);
-    }
-
-    void Update()
-    {   
-
-    }
-
-    IEnumerator MoveCameraToVictory()
-    {
-        Transform cam = Camera.main.transform;
-        float t = 0f;
-        Vector3 startPos = cam.position;
-        Quaternion startRot = cam.rotation;
-
-        while (t < 1f)
-        {
-            t += Time.deltaTime * camMoveSpeed;
-            cam.position = Vector3.Lerp(startPos, victoryCamPosition.position, t);
-            cam.rotation = Quaternion.Slerp(startRot, victoryCamPosition.rotation, t);
-            yield return null;
-        }
-    }
-
     public void ClickAndLoad() {
-        Invoke("MainMenu", 0.5f);
+        Invoke("LoadGame", 0f);
     }
     
     public void LoadGame() {

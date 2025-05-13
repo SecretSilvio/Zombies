@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     // private Rigidbody rb;
     private CharacterController controller;
+    public FP_Cursor lookScript;
 
     public float moveSpeed = 15;
     public float jumpForce = 25;
@@ -41,9 +42,9 @@ public class Player : MonoBehaviour
         // rb = GetComponent<Rigidbody>();
         controller = GetComponent<CharacterController>();
         StartCoroutine(GroggyRoutine());
-        // humanWin.SetActive(false);
-        // zombieWin.SetActive(false);
-        // loseScreen.SetActive(false);
+        humanWin.SetActive(false);
+        zombieWin.SetActive(false);
+        loseScreen.SetActive(false);
     }
 
     void Update()
@@ -138,14 +139,14 @@ public class Player : MonoBehaviour
             Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            zombieWin.SetActive(true);
+            humanWin.SetActive(true);
         }
         if (humankills == killGoal)
         {
             Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            humanWin.SetActive(true);
+            zombieWin.SetActive(true);
         }
     }
 
