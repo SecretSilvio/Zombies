@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Player : MonoBehaviour
 {
@@ -105,8 +106,12 @@ public class Player : MonoBehaviour
         {
             if (hit.CompareTag("Zombie") || hit.CompareTag("Human"))
             {
-                Destroy(hit.gameObject);
-                Debug.Log("Hit target: " + hit.name);
+                Killable killable = hit.GetComponent<Killable>();
+                if (killable != null)
+                {
+                    killable.Die();
+                }
+                    Debug.Log("Hit target: " + hit.name);
                 if (hit.CompareTag("Zombie"))
                 {
                     // logic for incrementing score
