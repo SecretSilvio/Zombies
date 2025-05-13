@@ -64,6 +64,7 @@ public class HumanAI : MonoBehaviour
         {
             if (CanSee(zombie.transform))
             {
+                lastSeenTimer = 3.0f;
                 Debug.Log("Zombie spotted!");
                 currentZombieThreat = zombie.transform;
                 currentState = HumanState.Fleeing;
@@ -79,10 +80,7 @@ public class HumanAI : MonoBehaviour
             currentState = HumanState.Wandering;
             return;
         }
-        else
-        {
-            lastSeenTimer = 5.0f;
-        }
+
         lastSeenTimer -= Time.deltaTime;
         Transform bestSafePoint = null;
         float closestDist = float.MaxValue;
@@ -105,12 +103,8 @@ public class HumanAI : MonoBehaviour
         }
         else
         {
-            // No valid safe point: move in the opposite direction
-            Vector3 fleeDir = (transform.position - currentZombieThreat.position).normalized;
-            Vector3 fleeTarget = transform.position + fleeDir * wanderRadius;
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(fleeTarget, out hit, wanderRadius, NavMesh.AllAreas))
-                agent.SetDestination(hit.position);
+            bestSafePoint = safePoints[Random.Range(0, safePoints.Length)];
+            agent.SetDestination(bestSafePoint.position);
         }
 
         // Optional: stop fleeing if the zombie is no longer visible

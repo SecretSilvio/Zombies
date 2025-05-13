@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 7049258974599904927}
   - component: {fileID: 7027094681546793122}
   - component: {fileID: 3905269972899164424}
+  - component: {fileID: 307607590897094283}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Zombie
@@ -156,7 +157,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -180,8 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebb2adc770706b54c9acd1ecc6605b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 10
-  sightRange: 30
+  wanderRadius: 20
+  sightRange: 40
   attackRange: 2
   timeBetweenWanders: 5
   attackCooldown: 2
@@ -198,6 +199,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb309719e7db14f45bff1eab955dbc44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &307607590897094283
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3043854060774541068}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 4dd08149a73761d46945acc455781ac0, type: 3}
+  m_Controller: {fileID: 9100000, guid: e804891c996744242a3eca0c63a5c2a4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7076974587434664828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206,6 +229,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2341121860823329049}
     m_Modifications:
+    - target: {fileID: 1118881133962216337, guid: f94c577fdd00e594abc50fdff8f3ff17, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b7382eb6b4393c74f83af87837c839c0, type: 2}
+    - target: {fileID: 1118881133962216337, guid: f94c577fdd00e594abc50fdff8f3ff17, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5921367157248738129, guid: f94c577fdd00e594abc50fdff8f3ff17, type: 3}
       propertyPath: m_Name
       value: (P) Characters_Zombie_Pacient_04
@@ -250,7 +281,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1118881133962216337, guid: f94c577fdd00e594abc50fdff8f3ff17, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

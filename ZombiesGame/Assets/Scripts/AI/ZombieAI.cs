@@ -27,7 +27,7 @@ public class ZombieAI : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         wanderTimer = timeBetweenWanders;
         attackTimer = 0f;
     }
